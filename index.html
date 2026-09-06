@@ -71,7 +71,20 @@
   .hm .v{font-family:'Archivo Black';direction:ltr;text-align:right;font-size:clamp(18px,3vw,30px);letter-spacing:.02em}
   .hm .v.red{color:var(--red)}
   .hm .k{color:var(--mut);font-size:11.5px;letter-spacing:.16em;margin-top:4px}
-  @media(max-width:720px){.hero-meta{grid-template-columns:1fr 1fr}.hm:nth-child(2){border-left:none}.hm{border-bottom:1px solid var(--line)}}
+  @media(max-width:720px){
+    .topbar{padding:10px 14px;font-size:10.5px}
+    .topbar .id:last-child{display:none}
+    .hero{min-height:auto;padding-bottom:34px}
+    .hero-inner{padding-top:84px}
+    .hero-kicker{gap:8px;margin-bottom:14px}
+    .hero-kicker .chip{padding:6px 12px;font-size:11px;white-space:nowrap}
+    .latin{margin-top:2px}
+    .h-heb{margin-top:20px}
+    .hero-meta{grid-template-columns:1fr 1fr}
+    .hm:nth-child(2){border-left:none}
+    .hm{border-bottom:1px solid var(--line);padding:14px 6px}
+    .hm:nth-child(3),.hm:nth-child(4){border-bottom:none}
+  }
 
   /* ---------- marquee ---------- */
   .marq{background:var(--red);color:#fff;overflow:hidden;white-space:nowrap;border-block:1px solid #000}
@@ -146,7 +159,8 @@
   .deck{display:flex;align-items:center;gap:14px;padding:14px 16px;border-top:1px solid var(--line);flex-wrap:wrap}
   .deck button{
     font-family:'JetBrains Mono';font-size:12px;letter-spacing:.1em;cursor:pointer;
-    background:transparent;color:var(--paper);border:1px solid var(--line2);padding:10px 18px;transition:.15s;
+    background:transparent;color:var(--paper);border:1px solid var(--line2);padding:12px 18px;transition:.15s;
+    min-height:44px;
   }
   .deck button:hover{border-color:var(--red);color:var(--red)}
   .deck button.on{background:var(--red);border-color:var(--red);color:#fff}
@@ -176,8 +190,9 @@
   @media(max-width:860px){.deal-r{border-inline-start:none;border-top:1px solid var(--line);flex-direction:row}}
   .deal-r a{
     flex:1;display:flex;align-items:center;justify-content:center;gap:10px;
-    padding:34px 44px;text-decoration:none;font-weight:900;font-size:17px;letter-spacing:.02em;transition:.15s;
+    padding:34px 24px;text-decoration:none;font-weight:900;font-size:17px;letter-spacing:.02em;transition:.15s;
   }
+  .deal-r a span.num{direction:ltr;unicode-bidi:embed;white-space:nowrap}
   .deal-r a+a{border-inline-start:1px solid var(--line)}
   .a-call{color:var(--ink);background:var(--red)}
   .a-call:hover{filter:brightness(1.12)}
@@ -212,6 +227,25 @@
   .lb button{width:48px;height:48px;border-radius:0;border:1px solid var(--line2);background:transparent;color:var(--paper);font-size:18px;cursor:pointer}
   .lb button:hover{border-color:var(--red);color:var(--red)}
   .lb .cap{font-family:'JetBrains Mono';font-size:12px;color:var(--mut);letter-spacing:.12em;direction:ltr}
+
+  /* ---------- mobile refinements ---------- */
+  @media(max-width:720px){
+    section{padding:64px 18px 0}
+    .pitch{gap:32px;padding-top:24px}
+    .d-row{grid-template-columns:44px 1fr;gap:10px 14px;padding:18px 2px}
+    .d-row .n{grid-column:1;grid-row:1}
+    .d-row .t{grid-column:2;grid-row:1}
+    .d-row .d-body{grid-column:2;grid-row:2}
+    .d-row .d-fix{grid-column:2;grid-row:3;text-align:right}
+    .frame{width:82vw}
+    .deal{padding:0}
+    .deal-l{padding:28px 22px}
+    .deal-r a{padding:26px 18px;font-size:16px}
+    .sticky{padding:10px 12px}
+    .sticky .sp{font-size:18px}
+    .sticky a{padding:13px 16px;font-size:13px}
+    .lb img{max-width:96vw;max-height:70vh}
+  }
 </style>
 </head>
 <body>
@@ -400,7 +434,7 @@
       <div class="pd">מכירה פרטית · בדיקה ונסיעת מבחן בכל יום · איסוף מ: יבנה / נס ציונה / רחובות</div>
     </div>
     <div class="deal-r">
-      <a class="a-call" href="tel:+972533435240">📞 053-3435240</a>
+      <a class="a-call" href="tel:+972533435240">📞 <span class="num">053-3435240</span></a>
       <a class="a-wa" href="https://wa.me/972533435240?text=%D7%94%D7%99%D7%99!%20%D7%A7%D7%A8%D7%90%D7%AA%D7%99%20%D7%90%D7%AA%20%D7%94%D7%A1%D7%99%D7%A4%D7%95%D7%A8%20%D7%A9%D7%9C%20%D7%94%D7%90%D7%99%D7%91%D7%99%D7%96%D7%94.%20%D7%91%D7%95%D7%90%D7%95%D7%AA%20%D7%A0%D7%92%D7%99%D7%93?" target="_blank" rel="noopener">💬 וואטסאפ</a>
     </div>
   </div>

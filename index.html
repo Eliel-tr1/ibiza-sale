@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBIZA — 59·643·38</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Heebo:wght@400;500;700;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#09090B; --paper:#FAFAFA; --red:#E10600; --mut:#8E8E96;
+    --line:#232329; --line2:#3a3a42;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--paper);font-family:'Heebo',Rubik,sans-serif;line-height:1.6;overflow-x:hidden}
+  ::selection{background:var(--red);color:#fff}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .en{direction:ltr;unicode-bidi:embed}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:fixed;top:0;right:0;left:0;z-index:40;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 22px;font-size:12px;letter-spacing:.12em;
+    background:#09090bd9;backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .id{color:var(--mut)}
+  .topbar .id b{color:var(--paper);font-weight:700}
+  .topbar .dot{color:var(--red)}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+  .hero-bg{position:absolute;inset:0}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 60%;filter:saturate(.92) contrast(1.05)}
+  .hero-bg::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,#09090bf0 0%,#09090b00 34%,#09090b00 55%,#09090bf2 92%)}
+  .hero-inner{position:relative;z-index:2;padding:120px 22px 0;max-width:1240px;margin:0 auto;width:100%}
+  .hero-kicker{display:flex;gap:14px;align-items:center;color:var(--mut);font-size:12px;letter-spacing:.18em;margin-bottom:10px;flex-wrap:wrap}
+  .hero-kicker .chip{border:1px solid var(--line2);padding:5px 12px;color:var(--paper);background:rgba(9,9,11,.55);text-shadow:0 1px 4px rgba(0,0,0,.8)}
+  .hero-kicker .chip.red{border-color:var(--red);color:#ff6b62}
+  .latin{
+    font-family:'Archivo Black',sans-serif;direction:ltr;text-align:right;
+    font-size:clamp(72px,17vw,230px);line-height:.86;letter-spacing:-.01em;
+    color:transparent;-webkit-text-stroke:2px #fafafa;user-select:none;
+    filter:drop-shadow(0 4px 18px rgba(0,0,0,.85)) drop-shadow(0 2px 6px rgba(0,0,0,.6));
+  }
+  .latin .fill{color:var(--paper);-webkit-text-stroke:0}
+  .latin .rd{color:var(--red);-webkit-text-stroke:0}
+  .h-heb{font-weight:900;font-size:clamp(24px,4.6vw,44px);line-height:1.25;margin-top:14px;max-width:720px;
+    text-shadow:0 2px 12px rgba(0,0,0,.9),0 4px 28px rgba(0,0,0,.7)}
+  .h-heb em{font-style:normal;color:var(--red)}
+  .type-line{
+    font-family:'JetBrains Mono',monospace;font-size:clamp(14px,2vw,19px);
+    color:var(--paper);margin-top:16px;min-height:1.9em;max-width:640px;
+    text-shadow:0 2px 10px rgba(0,0,0,.9),0 3px 20px rgba(0,0,0,.65)
+  }
+  .type-line::after{content:'▌';color:var(--red);animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  @media(prefers-reduced-motion:reduce){.type-line::after{animation:none}}
+  .hero-sub{color:#c9c9cf;max-width:560px;margin-top:12px;font-size:16px;
+    text-shadow:0 2px 10px rgba(0,0,0,.9),0 3px 20px rgba(0,0,0,.65)}
+  .hero-meta{
+    margin-top:34px;border-top:1px solid var(--line);
+    display:grid;grid-template-columns:repeat(4,1fr);
+  }
+  .hm{padding:16px 6px;border-left:1px solid var(--line)}
+  .hm:last-child{border-left:none}
+  .hm .v{font-family:'Archivo Black';direction:ltr;text-align:right;font-size:clamp(18px,3vw,30px);letter-spacing:.02em}
+  .hm .v.red{color:var(--red)}
+  .hm .k{color:var(--mut);font-size:11.5px;letter-spacing:.16em;margin-top:4px}
+  @media(max-width:720px){.hero-meta{grid-template-columns:1fr 1fr}.hm:nth-child(2){border-left:none}.hm{border-bottom:1px solid var(--line)}}
+
+  /* ---------- marquee ---------- */
+  .marq{background:var(--red);color:#fff;overflow:hidden;white-space:nowrap;border-block:1px solid #000}
+  .marq span{display:inline-block;padding:10px 0;font-family:'Archivo Black';direction:ltr;font-size:15px;letter-spacing:.06em;animation:mq 26s linear infinite}
+  .marq i{font-style:normal;opacity:.55;margin:0 18px}
+  @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media(prefers-reduced-motion:reduce){.marq span{animation:none}}
+
+  /* ---------- sections ---------- */
+  section{max-width:1240px;margin:0 auto;padding:96px 22px 0}
+  .sec-head{display:flex;align-items:baseline;gap:18px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:8px}
+  .sec-num{font-family:'JetBrains Mono';color:var(--red);font-size:13px;letter-spacing:.2em;direction:ltr}
+  .sec-title{font-weight:900;font-size:clamp(28px,4.5vw,46px);letter-spacing:-.02em}
+  .sec-note{margin-inline-start:auto;color:var(--mut);font-size:12px;letter-spacing:.14em;display:none}
+  @media(min-width:900px){.sec-note{display:block}}
+
+  /* pitch */
+  .pitch{display:grid;grid-template-columns:1.6fr 1fr;gap:48px;padding-top:36px}
+  @media(max-width:860px){.pitch{grid-template-columns:1fr}}
+  .speech p{font-size:clamp(17px,2vw,21px);font-weight:500;line-height:1.9;margin-bottom:18px;max-width:640px}
+  .speech .lead-in{color:var(--mut);font-size:13px;letter-spacing:.14em;margin-bottom:22px}
+  .speech b{color:var(--red);font-weight:700}
+  .factfile{border:1px solid var(--line);align-self:start}
+  .ff-row{display:flex;justify-content:space-between;gap:10px;padding:13px 16px;border-bottom:1px solid var(--line);font-size:14px}
+  .ff-row:last-child{border-bottom:none}
+  .ff-row .fk{color:var(--mut);font-size:12px;letter-spacing:.1em}
+  .ff-row .fv{font-weight:700;text-align:left}
+  .ff-row .fv.red{color:var(--red)}
+  .ff-title{background:#131318;padding:10px 16px;font-size:11px;letter-spacing:.22em;color:var(--mut);direction:ltr;text-align:right;font-family:'JetBrains Mono'}
+
+  /* value rows (שווי פנימי) */
+  .disc{border-top:1px solid var(--line)}
+  .d-row{
+    display:grid;grid-template-columns:64px 220px 1fr auto;gap:20px;align-items:center;
+    padding:22px 4px;border-bottom:1px solid var(--line);transition:background .2s;
+  }
+  .d-row:hover{background:#121217}
+  @media(max-width:860px){.d-row{grid-template-columns:44px 1fr;grid-auto-rows:auto}.d-row .d-tag{grid-column:2}.d-row .d-fix{grid-column:2}}
+  .d-row .n{font-family:'JetBrains Mono';color:var(--mut);direction:ltr;font-size:13px}
+  .d-row .t{font-weight:900;font-size:clamp(17px,2.2vw,22px)}
+  .d-row .d-tag{font-size:11px;letter-spacing:.14em;padding:5px 12px;border:1px solid var(--line2);color:var(--mut);width:fit-content}
+  .d-row .d-tag.ok{border-color:#1d4d33;color:#4ade80}
+  .d-row .d-body{color:var(--mut);font-size:14.5px;max-width:560px}
+  .d-row .d-fix{font-family:'JetBrains Mono';font-size:13px;color:var(--red);direction:ltr;text-align:left;white-space:nowrap}
+
+  /* skills cards */
+  .skills{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:36px}
+  @media(max-width:860px){.skills{grid-template-columns:1fr}}
+  .sk{
+    background:var(--panel);border:1px solid var(--line);padding:24px;
+    transition:border-color .2s,transform .2s;position:relative;
+  }
+  .sk:hover{border-color:var(--red);transform:translateY(-3px)}
+  .sk .sn{font-family:'JetBrains Mono';color:var(--red);font-size:12px;direction:ltr;display:block;margin-bottom:12px}
+  .sk .st{font-weight:900;font-size:19px;margin-bottom:8px;line-height:1.35}
+  .sk .sd{color:var(--mut);font-size:14.5px;line-height:1.7}
+
+  /* orbit / video */
+  .orbit{margin-top:36px;border:1px solid var(--line);background:#0c0c0f}
+  .stage{position:relative;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;background:
+    radial-gradient(ellipse 60% 55% at 50% 62%, #17171c, #060608)}
+  .stage video{width:100%;height:100%;object-fit:contain}
+  .hud{position:absolute;inset:0;pointer-events:none;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.12em}
+  .hud .tl{position:absolute;top:12px;right:14px;color:var(--mut);direction:ltr}
+  .hud .tr{position:absolute;top:12px;left:14px;color:var(--red);direction:ltr}
+  .hud .bl{position:absolute;bottom:12px;right:14px;color:var(--mut);direction:ltr}
+  .hud .rec{position:absolute;bottom:12px;left:14px;color:#f87171;direction:ltr;display:flex;align-items:center;gap:7px}
+  .hud .rec i{width:8px;height:8px;border-radius:50%;background:#f87171;animation:blink 1.4s steps(1) infinite}
+  @media(prefers-reduced-motion:reduce){.hud .rec i{animation:none}}
+  .deck{display:flex;align-items:center;gap:14px;padding:14px 16px;border-top:1px solid var(--line);flex-wrap:wrap}
+  .deck button{
+    font-family:'JetBrains Mono';font-size:12px;letter-spacing:.1em;cursor:pointer;
+    background:transparent;color:var(--paper);border:1px solid var(--line2);padding:10px 18px;transition:.15s;
+  }
+  .deck button:hover{border-color:var(--red);color:var(--red)}
+  .deck button.on{background:var(--red);border-color:var(--red);color:#fff}
+  .deck input[type=range]{flex:1;min-width:160px;accent-color:var(--red);direction:ltr}
+  .deck .deg{font-family:'JetBrains Mono';font-size:13px;color:var(--mut);min-width:56px;text-align:center;direction:ltr}
+  .orbit .hint{padding:0 16px 14px;color:var(--mut);font-size:12.5px}
+
+  /* gallery filmstrip */
+  .strip-wrap{margin-top:36px;overflow-x:auto;scrollbar-width:thin;padding-bottom:10px}
+  .film{display:flex;gap:10px;width:max-content}
+  .frame{position:relative;width:min(420px,80vw);aspect-ratio:4/3;background:#101014;border:1px solid var(--line);overflow:hidden;flex:none}
+  .frame img{width:100%;height:100%;object-fit:cover;display:block}
+  .frame .ph{position:absolute;inset:0;display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;color:#57575f;font-size:13px;letter-spacing:.1em}
+  .frame .ph .bignum{font-family:'Archivo Black';font-size:54px;color:#1d1d23;direction:ltr}
+  .frame .cap{position:absolute;bottom:0;right:0;left:0;padding:8px 12px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.12em;background:#09090bcc;color:var(--mut);direction:ltr;text-align:left}
+  .frame.filled{cursor:pointer}
+  .frame.filled:hover{border-color:var(--red)}
+
+  /* deal */
+  .deal{margin-top:36px;border:1px solid var(--line);display:grid;grid-template-columns:1fr auto}
+  @media(max-width:860px){.deal{grid-template-columns:1fr}}
+  .deal-l{padding:36px}
+  .deal-l .p{font-family:'Archivo Black';direction:ltr;text-align:right;font-size:clamp(56px,9vw,110px);line-height:1;color:var(--paper)}
+  .deal-l .p i{font-style:normal;color:var(--red)}
+  .deal-l .pd{color:var(--mut);margin-top:12px;font-size:14px;letter-spacing:.06em}
+  .deal-r{border-inline-start:1px solid var(--line);display:flex;flex-direction:column}
+  @media(max-width:860px){.deal-r{border-inline-start:none;border-top:1px solid var(--line);flex-direction:row}}
+  .deal-r a{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:10px;
+    padding:34px 44px;text-decoration:none;font-weight:900;font-size:17px;letter-spacing:.02em;transition:.15s;
+  }
+  .deal-r a+a{border-inline-start:1px solid var(--line)}
+  .a-call{color:var(--ink);background:var(--red)}
+  .a-call:hover{filter:brightness(1.12)}
+  .a-wa{color:var(--paper)}
+  .a-wa:hover{background:#121217}
+
+  /* footer */
+  footer{max-width:1240px;margin:90px auto 0;padding:26px 22px 110px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;gap:12px;color:#57575f;font-size:11px;letter-spacing:.14em;flex-wrap:wrap}
+
+  /* sticky mobile cta */
+  .sticky{position:fixed;bottom:0;right:0;left:0;z-index:45;display:none;
+    background:#09090bee;backdrop-filter:blur(10px);border-top:1px solid var(--line);
+    padding:10px 14px;gap:10px;align-items:center}
+  .sticky .sp{font-family:'Archivo Black';direction:ltr;font-size:20px;margin-inline-end:auto}
+  .sticky .sp i{font-style:normal;color:var(--red)}
+  .sticky a{text-decoration:none;font-weight:900;font-size:14px;padding:12px 20px}
+  .sticky .a-call{background:var(--red);color:#fff}
+  .sticky .a-wa{border:1px solid var(--line2);color:var(--paper)}
+  @media(max-width:860px){.sticky{display:flex}footer{padding-bottom:130px}}
+
+  /* reveal */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+  /* lightbox */
+  .lb{display:none;position:fixed;inset:0;background:#050506f5;z-index:80;align-items:center;justify-content:center;flex-direction:column}
+  .lb.open{display:flex}
+  .lb img{max-width:94vw;max-height:78vh;border:1px solid var(--line2)}
+  .lb .row{margin-top:16px;display:flex;gap:18px;align-items:center}
+  .lb button{width:48px;height:48px;border-radius:0;border:1px solid var(--line2);background:transparent;color:var(--paper);font-size:18px;cursor:pointer}
+  .lb button:hover{border-color:var(--red);color:var(--red)}
+  .lb .cap{font-family:'JetBrains Mono';font-size:12px;color:var(--mut);letter-spacing:.12em;direction:ltr}
+</style>
+</head>
+<body>
+
+<div class="topbar mono">
+  <div class="id">SEAT IBIZA <b>59·643·38</b> <span class="dot">●</span> FOR SALE</div>
+  <div class="id en">יבנה · נס ציונה · רחובות</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"><img src="photos/front.jpg" alt="איביזה 2017"></div>
+  <div class="hero-inner">
+    <div class="hero-kicker mono">
+      <span class="chip red">יד 2</span>
+      <span class="chip">בעלים יחיד</span>
+      <span class="chip">ידנית</span>
+      <span class="chip">יבנה / נס ציונה / רחובות</span>
+    </div>
+    <div class="latin en">IBI<span class="fill">ZA</span><span class="rd">.</span></div>
+    <h1 class="h-heb">הבעלים שלי נטש אותי לטובת אופנוע.<br><em>אני מחפשת בית חדש.</em></h1>
+    <div class="type-line" id="typeline" aria-label="הרכב מקלידה"></div>
+    <p class="hero-sub">9 שנים · בעלים אחד · 165,000 ק"מ · גיר ידני אמיתי · טסט עד 01/2027</p>
+    <div class="hero-meta mono">
+      <div class="hm"><div class="v">165K</div><div class="k">ק"מ · ממוצע שוק ~180K</div></div>
+      <div class="hm"><div class="v red">01/27</div><div class="k">טסט בתוקף</div></div>
+      <div class="hm"><div class="v">1.2L</div><div class="k">ידנית · 90 כ"ס</div></div>
+      <div class="hm"><div class="v">MOMO</div><div class="k">ג'אנטים</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="marq en"><span>165,000 KM<i>/</i>ONE OWNER<i>/</i>TEST 01/2027<i>/</i>MANUAL 5-SPEED<i>/</i>MOMO WHEELS<i>/</i>NEW BATTERY<i>/</i>FULL SOUND SYSTEM<i>/</i>165,000 KM<i>/</i>ONE OWNER<i>/</i>TEST 01/2027<i>/</i>MANUAL 5-SPEED<i>/</i>MOMO WHEELS<i>/</i>NEW BATTERY<i>/</i>FULL SOUND SYSTEM<i>/</i></span></div>
+
+<!-- 01 PITCH -->
+<section id="pitch">
+  <div class="sec-head rv">
+    <span class="sec-num">SEC.01</span>
+    <span class="sec-title">הנאום</span>
+    <span class="sec-note mono en">ELEVATOR PITCH · 50 SEC</span>
+  </div>
+  <div class="pitch">
+    <div class="speech rv">
+      <p class="lead-in mono">— נאום פתיחה, בגוף ראשון. קוראים לי איביזה:</p>
+      <p>נולדתי במרטורל שבספרד, ומ-2017 אני במשפחה אחת. <b>אחת.</b> אפס סוחרים, אפס "הייתה של סבא".</p>
+      <p>פעם היו לי טיולים, חברים בכיסא השני, ופלייליסט שהיה חזק מדי תמיד. ואז הוא הביא אופנוע. מאז אני עומדת במוסך — <b>מכונית שלא מתייחסים אליה</b>. סוללה חדשה, טסט בתוקף, והכביש חיכה לי בחוץ.</p>
+      <p>אז הנה העסקה: קחו אותי לכביש 90, העמיסו חברים, השמיעו מוזיקה — ואני אחזיר אתכם הביתה בכל פעם. <b>זה כל מה שאני מבקשת.</b></p>
+      <p>הגיר שלי ידני. כזה שמרגישים אותו. זול בביטוח, זול בתחזוקה, ותמיד יש לו קונים.</p>
+    </div>
+    <aside class="factfile mono rv">
+      <div class="ff-title">כרטיס רכב — 59·643·38</div>
+      <div class="ff-row"><span class="fk">עלייה לכביש</span><span class="fv">01/2017 · ספרד</span></div>
+      <div class="ff-row"><span class="fk">דגם</span><span class="fv">איביזה REFERENCE</span></div>
+      <div class="ff-row"><span class="fk">מנוע</span><span class="fv">1,197 סמ"ק · 90 כ"ס</span></div>
+      <div class="ff-row"><span class="fk">תיבת הילוכים</span><span class="fv">ידנית ×5</span></div>
+      <div class="ff-row"><span class="fk">בעלים</span><span class="fv red">1 · יד 2</span></div>
+      <div class="ff-row"><span class="fk">נסועה</span><span class="fv">165,000 ק"מ</span></div>
+      <div class="ff-row"><span class="fk">טסט</span><span class="fv">07/01/2027</span></div>
+      <div class="ff-row"><span class="fk">צמיגים</span><span class="fv">215/45 R16</span></div>
+      <div class="ff-row"><span class="fk">ג'אנטים</span><span class="fv">MOMO 16"</span></div>
+      <div class="ff-row"><span class="fk">מיקום</span><span class="fv">יבנה / נס ציונה / רחובות</span></div>
+    </aside>
+  </div>
+</section>
+
+<!-- 02 VALUE -->
+<section id="value">
+  <div class="sec-head rv">
+    <span class="sec-num">SEC.02</span>
+    <span class="sec-title">שווי פנימי</span>
+    <span class="sec-note mono en">WHAT'S ALREADY INSIDE</span>
+  </div>
+  <div class="disc rv">
+    <div class="d-row">
+      <span class="n">02.1</span>
+      <span class="t">מצבר חדש</span>
+      <span class="d-body">הוחלף לפני שבועיים. מתעוררת בכל בוקר בלי להתחנן.</span>
+      <span class="d-fix">700 ₪</span>
+    </div>
+    <div class="d-row">
+      <span class="n">02.2</span>
+      <span class="t">סט 4 ג'אנטים MOMO</span>
+      <span class="d-body">לא של המפעל — טובים יותר. סט חדש דומה עולה בשוק כ-3,500 ₪ בממוצע (מגנזיום 16" מותגי, כולל התקנה).</span>
+      <span class="d-fix">~3,500 ₪</span>
+    </div>
+    <div class="d-row">
+      <span class="n">02.3</span>
+      <span class="t">מערכת סאונד מלאה</span>
+      <span class="d-body">הותקנה ברכב. הפלייליסט הבא עליכם.</span>
+      <span class="d-fix">~1,500 ₪</span>
+    </div>
+    <div class="d-row">
+      <span class="n">Σ</span>
+      <span class="t">ערך מוסף שנשאר ברכב</span>
+      <span class="d-body">שלא תדעו לאן נעלמו 5,700 השקלים מהמחיר הזה.</span>
+      <span class="d-fix">~5,700 ₪</span>
+    </div>
+  </div>
+</section>
+
+<!-- 03 SKILLS -->
+<section id="skills">
+  <div class="sec-head rv">
+    <span class="sec-num">SEC.03</span>
+    <span class="sec-title">כישורים</span>
+    <span class="sec-note mono en">SKILLS &amp; SPECIAL ABILITIES</span>
+  </div>
+  <div class="skills rv">
+    <div class="sk">
+      <span class="sn">SK-01</span>
+      <div class="st">⚓ מצב ניוטרל</div>
+      <div class="sd">ידנית אמיתית — בירידות ארוכות אפשר להעביר לניוטרל ולגלוש בעדינות. הדלק לא בוכה, גם אתם.</div>
+    </div>
+    <div class="sk">
+      <span class="sn">SK-02</span>
+      <div class="st">🌄 ג'יפון מוסווי</div>
+      <div class="sd">בשטח אני נוסעת כמו ג'יפון — בזכות הג'אנטים והגיר הידני. שבילי עפר? בבקשה. רק שהחברים יחזיקו את הקפה.</div>
+    </div>
+    <div class="sk">
+      <span class="sn">SK-03</span>
+      <div class="st">⏳ נראית צעירה</div>
+      <div class="sd">אני 2017, אבל כולם חושבים שאני 2021. תמשיכו לחשוב ככה — זה לא מזיק לאף אחד.</div>
+    </div>
+    <div class="sk">
+      <span class="sn">SK-04</span>
+      <div class="st">🎵 DJ פרטי</div>
+      <div class="sd">מערכת סאונד מלאה שמחכה לפלייליסט שלכם. הניוטרל הוא לגלגלים, לא לרמקולים.</div>
+    </div>
+    <div class="sk">
+      <span class="sn">SK-05</span>
+      <div class="st">🔋 תמיד באנרג'י</div>
+      <div class="sd">מצבר חדש לפני שבועיים. מגלגלת מהצ'וק הראשון. אפס דרמות של בוקר חורף.</div>
+    </div>
+    <div class="sk">
+      <span class="sn">SK-06</span>
+      <div class="st">🅿️ חניה בקטן</div>
+      <div class="sd">קומפקטית בדיוק בגודל הנכון — נכנסת לחניה שסוזוקי פורטה ויתר עליה. הכישורים האלה לא מלמדים באוטוסכול.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 ORBIT -->
+<section id="orbit">
+  <div class="sec-head rv">
+    <span class="sec-num">SEC.04</span>
+    <span class="sec-title">הקיפו אותי</span>
+    <span class="sec-note mono en">ORBIT CAM · 360°</span>
+  </div>
+  <div class="orbit rv">
+    <div class="stage">
+      <video id="vid" src="photos/orbit-web.mp4" muted playsinline autoplay loop preload="auto"></video>
+      <div class="hud">
+        <div class="tl">CAM-360 · ORBIT-01</div>
+        <div class="tr" id="hudDeg">000.0°</div>
+        <div class="bl">59·643·38 · IBIZA</div>
+        <div class="rec"><i></i>REC</div>
+      </div>
+    </div>
+    <div class="deck">
+      <button id="play" class="on">⏸ עצירה</button>
+      <input type="range" id="scrub" min="0" max="1000" value="0" aria-label="סיבוב ידני">
+      <span class="deg" id="deg">0°</span>
+      <button id="auto" class="on">🔄 אוטומטי</button>
+      <button id="manual">✋ ידני</button>
+    </div>
+    <div class="hint">ברירת מחדל: סיבוב אוטומטי. במצב ידני — גררו את הפס כדי לשלוט בזווית.</div>
+  </div>
+</section>
+
+<!-- 04 GALLERY -->
+<section id="gallery">
+  <div class="sec-head rv">
+    <span class="sec-num">SEC.05</span>
+    <span class="sec-title">תיק צילומים</span>
+    <span class="sec-note mono en">NO RETOUCH · NO STUDIO</span>
+  </div>
+  <div class="strip-wrap rv"><div class="film" id="film"></div></div>
+</section>
+
+<!-- 05 DEAL -->
+<section id="deal">
+  <div class="sec-head rv">
+    <span class="sec-num">SEC.06</span>
+    <span class="sec-title">העסקה</span>
+    <span class="sec-note mono en">PRIVATE SALE</span>
+  </div>
+  <div class="deal rv">
+    <div class="deal-l">
+      <div class="p en">38,500<i>₪</i></div>
+      <div class="pd">מכירה פרטית · בדיקה ונסיעת מבחן בכל יום · איסוף מ: יבנה / נס ציונה / רחובות</div>
+    </div>
+    <div class="deal-r">
+      <a class="a-call" href="tel:+972533435240">📞 053-3435240</a>
+      <a class="a-wa" href="https://wa.me/972533435240?text=%D7%94%D7%99%D7%99!%20%D7%A7%D7%A8%D7%90%D7%AA%D7%99%20%D7%90%D7%AA%20%D7%94%D7%A1%D7%99%D7%A4%D7%95%D7%A8%20%D7%A9%D7%9C%20%D7%94%D7%90%D7%99%D7%91%D7%99%D7%96%D7%94.%20%D7%91%D7%95%D7%90%D7%95%D7%AA%20%D7%A0%D7%92%D7%99%D7%93?" target="_blank" rel="noopener">💬 וואטסאפ</a>
+    </div>
+  </div>
+</section>
+
+<footer class="mono">
+  <span class="en">IBIZA · 59·643·38 · MARTORELL → ISRAEL</span>
+  <span>הדף נכתב על ידי הרכב, בפיקוח הבעלים</span>
+  <span class="en">© 2026 · ONE OWNER CLUB</span>
+</footer>
+
+<div class="sticky">
+  <div class="sp en">38,500<i>₪</i></div>
+  <a class="a-call" href="tel:+972533435240">📞 התקשרות</a>
+  <a class="a-wa" href="https://wa.me/972533435240?text=%D7%94%D7%99%D7%99!%20%D7%A7%D7%A8%D7%90%D7%AA%D7%99%20%D7%90%D7%AA%20%D7%94%D7%A1%D7%99%D7%A4%D7%95%D7%A8%20%D7%A9%D7%9C%20%D7%94%D7%90%D7%99%D7%91%D7%99%D7%96%D7%94.%20%D7%91%D7%95%D7%90%D7%95%D7%AA%20%D7%A0%D7%92%D7%99%D7%93?" target="_blank" rel="noopener">💬</a>
+</div>
+
+<div class="lb" id="lb">
+  <img id="lbImg" alt="">
+  <div class="row">
+    <button id="lbPrev">→</button>
+    <span class="cap" id="lbCap"></span>
+    <button id="lbNext">←</button>
+  </div>
+</div>
+
+<script>
+// ---- typewriter: ONCE on page open ----
+var LINES=[
+  'הוא בחר שני גלגלים. אני מחכה למי שרוצה ארבעה.',
+  'טיולים? חברים? מוזיקה חזקה? אני בפנים.',
+  'מחפשת בית חדש. תקליק, אני כבר מגיעה.'
+];
+var tl=document.getElementById('typeline'),done=false;
+(function type(){
+  var li=0,ci=0;
+  function step(){
+    var line=LINES[li];
+    ci++;
+    tl.textContent=LINES.slice(0,li).join('  ·  ') + (li?'  ·  ':'') + line.slice(0,ci);
+    if(ci<line.length){setTimeout(step,55);return}
+    li++;ci=0;
+    if(li<LINES.length){setTimeout(step,700)}
+  }
+  step();
+})();
+
+// ---- filmstrip ----
+var SHOTS=[
+  {src:'photos/front.jpg',cap:'01 — FRONT · 3/4'},
+  {src:'photos/dash.jpg',cap:'02 — COCKPIT'},
+  {cap:'03 — צד ימין'},
+  {cap:'04 — צד שמאל'},
+  {cap:'05 — MOMO בתקריב'},
+  {cap:'06 — מושבים מקוריים'},
+  {cap:'07 — תא מטען'},
+  {cap:'08 — מנוע'},
+  {cap:'09 — אחורי'},
+  {cap:'10 — מסמכים'}
+];
+var film=document.getElementById('film');
+SHOTS.forEach(function(s,i){
+  var d=document.createElement('div');
+  d.className='frame'+(s.src?' filled':'');
+  if(s.src){d.innerHTML='<img src="'+s.src+'" alt="'+s.cap+'"><div class="cap">'+s.cap+'</div>';}
+  else{d.innerHTML='<div class="ph"><span class="bignum en">'+String(i+1).padStart(2,'0')+'</span><span>'+s.cap+'</span><span style="opacity:.5">COMING SOON</span></div>';}
+  if(s.src){d.onclick=function(){open(i)}}
+  film.appendChild(d);
+});
+var lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap'),idx=0;
+var REAL=SHOTS.filter(function(s){return s.src});
+function open(i){idx=i;upd();lb.classList.add('open')}
+function upd(){lbImg.src=REAL[idx].src;lbCap.textContent=REAL[idx].cap}
+document.getElementById('lbPrev').onclick=function(){idx=(idx+REAL.length-1)%REAL.length;upd()};
+document.getElementById('lbNext').onclick=function(){idx=(idx+1)%REAL.length;upd()};
+lb.onclick=function(e){if(e.target===lb)lb.classList.remove('open')};
+document.addEventListener('keydown',function(e){
+  if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')lb.classList.remove('open');
+  if(e.key==='ArrowLeft')document.getElementById('lbNext').click();
+  if(e.key==='ArrowRight')document.getElementById('lbPrev').click();
+});
+
+// ---- orbit video: auto by default, manual toggle ----
+var vid=document.getElementById('vid'),play=document.getElementById('play'),
+    scrub=document.getElementById('scrub'),deg=document.getElementById('deg'),
+    hud=document.getElementById('hudDeg'),
+    autoB=document.getElementById('auto'),manualB=document.getElementById('manual'),
+    autoMode=true;
+vid.playbackRate=0.5;
+var scrubActive=false;
+function fmt(f){return (f*360).toFixed(1).padStart(5,'0')+'°'}
+play.onclick=function(){
+  if(vid.paused){vid.play();play.textContent='⏸ עצירה';play.classList.add('on')}
+  else{vid.pause();play.textContent='▶ הסתובבי';play.classList.remove('on')}
+};
+scrub.addEventListener('pointerdown',function(){scrubActive=true});
+scrub.addEventListener('pointerup',function(){scrubActive=false});
+scrub.oninput=function(){
+  vid.currentTime=(scrub.value/1000)*(vid.duration||10);
+};
+vid.ontimeupdate=function(){
+  var f=vid.currentTime/(vid.duration||10);
+  if(autoMode&&!scrubActive)scrub.value=Math.round(f*1000);
+  deg.textContent=Math.round(f*360)+'°';
+  hud.textContent=fmt(f);
+};
+function setMode(m){
+  autoMode=m;
+  autoB.classList.toggle('on',m);manualB.classList.toggle('on',!m);
+  if(m){vid.play();play.textContent='⏸ עצירה';play.classList.add('on')}
+  else{vid.pause();play.textContent='▶ הסתובבי';play.classList.remove('on')}
+}
+autoB.onclick=function(){setMode(true)};
+manualB.onclick=function(){setMode(false)};
+
+// ---- reveal on scroll ----
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+},{threshold:.12});
+document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
